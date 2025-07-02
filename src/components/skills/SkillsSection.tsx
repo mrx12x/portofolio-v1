@@ -1,21 +1,10 @@
 import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "framer-motion";
-import { Progress } from "./ui/progress";
-import { Badge } from "./ui/badge";
-import { Card, CardContent } from "./ui/card";
-
-interface Skill {
-  name: string;
-  level: number;
-  category: string;
-}
-
-interface Experience {
-  title: string;
-  value: number;
-  suffix: string;
-}
+import { Progress } from "../ui/progress";
+import { Badge } from "../ui/badge";
+import { Card, CardContent } from "../ui/card";
+import { skills, experiences, technologies } from "../../data/skills";
 
 const SkillsSection = () => {
   const controls = useAnimation();
@@ -27,28 +16,6 @@ const SkillsSection = () => {
       controls.start("visible");
     }
   }, [controls, isInView]);
-
-  const skills: Skill[] = [
-    { name: "React", level: 90, category: "Frontend" },
-    { name: "TypeScript", level: 85, category: "Languages" },
-    { name: "Node.js", level: 80, category: "Backend" },
-    { name: "CSS/SCSS", level: 85, category: "Frontend" },
-    { name: "Framer Motion", level: 75, category: "Animation" },
-    { name: "Next.js", level: 80, category: "Frontend" },
-    { name: "GraphQL", level: 70, category: "Backend" },
-    { name: "Tailwind CSS", level: 90, category: "Frontend" },
-    { name: "MongoDB", level: 75, category: "Database" },
-    { name: "PostgreSQL", level: 80, category: "Database" },
-    { name: "Docker", level: 65, category: "DevOps" },
-    { name: "AWS", level: 70, category: "DevOps" },
-  ];
-
-  const experiences: Experience[] = [
-    { title: "Years Experience", value: 5, suffix: "+" },
-    { title: "Projects Completed", value: 30, suffix: "+" },
-    { title: "Happy Clients", value: 25, suffix: "+" },
-    { title: "Technologies", value: 15, suffix: "+" },
-  ];
 
   const categories = [...new Set(skills.map((skill) => skill.category))];
 
@@ -168,16 +135,8 @@ const SkillsSection = () => {
                           </div>
                         </div>
                         <Progress
-                          value={0}
+                          value={isInView ? skill.level : 0}
                           className="h-2"
-                          // Animate the progress bar when in view
-                          style={
-                            {
-                              "--progress-value": isInView
-                                ? `${skill.level}%`
-                                : "0%",
-                            } as React.CSSProperties
-                          }
                         />
                       </motion.div>
                     ))}
@@ -195,16 +154,7 @@ const SkillsSection = () => {
               variants={containerVariants}
               className="flex flex-wrap justify-center gap-4"
             >
-              {[
-                "React",
-                "TypeScript",
-                "Node.js",
-                "Next.js",
-                "Tailwind",
-                "GraphQL",
-                "MongoDB",
-                "PostgreSQL",
-              ].map((tech, index) => (
+              {technologies.map((tech, index) => (
                 <motion.div
                   key={tech}
                   variants={itemVariants}
@@ -213,7 +163,6 @@ const SkillsSection = () => {
                 >
                   <div className="text-center">
                     <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
-                      {/* Placeholder for tech icons - in a real app you'd use actual icons */}
                       <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-xl font-bold">
                         {tech.charAt(0)}
                       </div>

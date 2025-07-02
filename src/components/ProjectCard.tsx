@@ -8,16 +8,14 @@ interface ProjectCardProps {
   description: string;
   image: string;
   technologies: string[];
-  link?: string;
   onClick?: () => void;
 }
 
 const ProjectCard = ({
-  title = "Project Title",
-  description = "This is a sample project description that highlights the key features and technologies used in this project.",
-  image = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
-  technologies = ["React", "TypeScript", "Tailwind CSS"],
-  link = "#",
+  title,
+  description,
+  image,
+  technologies,
   onClick = () => {},
 }: ProjectCardProps) => {
   return (
@@ -33,7 +31,7 @@ const ProjectCard = ({
       transition={{ duration: 0.5 }}
     >
       <Card
-        className="h-full overflow-hidden border border-border hover:shadow-lg transition-shadow duration-300 flex flex-col"
+        className="h-full overflow-hidden border border-border hover:shadow-lg transition-shadow duration-300 flex flex-col cursor-pointer"
         onClick={onClick}
       >
         <div className="relative overflow-hidden aspect-video">
